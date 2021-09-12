@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>
+    Softin | Modificar Mueble
+</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+{% endblock %}
+
+{% block contenido %}
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i>
+                <img src="{{ url_for('static', filename='image/logo1.png')}}" class="img-fluid">
+            </i>
+            <span class="logo_name">Softin</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('auth.menu') }}">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="link_name">Inicio</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{{ url_for('auth.menu') }}">Inicio</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.usuarios')}}">
+                        <i class='bx bx-user'></i>
+                        <span class="link_name">Usuarios</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.usuarios')}}">Usuarios</a></li>
+                    <li><a href="{{ url_for('auth.usuarios_editar')}}">Editar</a></li>
+                    <li><a href="#">Eliminar</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.muebles')}}">
+                        <i class='bx bx-home-alt'></i>
+                        <span class="link_name">Muebles</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
+                    <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-pie-chart-alt-2"></i>
+                    <span class="link_name">Analytics</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Analytics</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-line-chart"></i>
+                    <span class="link_name">Chart</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Chart</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class="bx bx-plug"></i>
+                        <span class="link_name">Plugins</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Plugins</a></li>
+                    <li><a href="#">UI faces</a></li>
+                    <li><a href="#">Pigments</a></li>
+                    <li><a href="#">Box icon</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-compass"></i>
+                    <span class="link_name">Explore</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Explore</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-history"></i>
+                    <span class="link_name">History</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">History</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-history"></i>
+                    <span class="link_name">Setting</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Setting</a></li>
+                </ul>
+            </li>
+            <li>
+        <div class="profile-details">
+            <div class="profile-content">
+                <img src="{{ url_for('static', filename='image/user-1.png')}}" alt="">
+            </div>
+                <div class="name-job">
+                    <div class="profile_name">Gabriel Vieira</div>
+                    <div class="job">Back-end Dev</div>
+                </div>
+                <i class="bx bx-log-out"></i>
+        </div>
+        </li>
+    </ul>
+
+        </div>
+    </div>
+    <section class="home-section">
+        <div class="home-content">
+            <i class="bx bx-menu"></i>
+            <span class="text">Modificar Mueble</span>
+        </div>
+        <!-- Tablero -->
+        <form class="mb-55" method="POST" action="/update">
+            <!-- {% for message in get_flashed_messages() %}
+                <div class="font color alert alert-danger mt-4">{{ message }}</div>
+            {% endfor %} -->
+            {% for muebles in mueble %}
+            <div class="mb-4">
+                <input type="hidden" class="form-control border-0 text-b" value="{{ muebles.id_mueble }}" name="id_mueble">
+            </div>
+            <div class="mb-4">
+                <label class="form-label font-weight-bold">Tipo del mueble</label>
+                <select type="text" name="tipo_mueble"  class="form-control border-0 text-b" required>
+                    <option value="{{ muebles.tipo }}">{{ muebles.tipo }}</option>
+                    <option value="Habitacion">Habitacion</option>
+                    <option value="Local">Local</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="form-label font-weight-bold">Tamaño del mueble</label>
+                <select type="text" name="tamanio_mueble"  class="form-control border-0 text-b" required>
+                    <option value="{{ muebles.tamanio }}">{{ muebles.tamanio }}</option>
+                    <option value="Matrimonial">Matrimonial</option>
+                    <option value="Individual">Individual</option>
+                </select>            
+            </div>
+            <div class="mb-4">
+                <label class="form-label font-weight-bold">Disponibilidad del mueble</label><br>
+                {% if muebles.disponible == 'Si' %}
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ muebles.dispo }}" checked required><span class="black">Si<span><br>
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="No" required>No
+                {% else %}
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ muebles.dispo }}" checked required>No
+                {% endif %}
+            </div>
+            <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Modificar mueble</button>
+            {% endfor %}
+        </form>
+        
+    </section>
+
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i<arrow.length; i++){
+            arrow[i].addEventListener("click",(e)=>{
+            let arrowParent = e.target.parentElement.parentElement;
+            console.log(arrowParent);
+            arrowParent.classList.toggle("showMenu");
+            });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn)
+        sidebarBtn.addEventListener("click", ()=>{
+            sidebar.classList.toggle("close")
+        });
+    </script>
+
+
+</body>
+{% endblock %}

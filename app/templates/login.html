@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }}
+    Log in
+{% endblock %}
+
+
+{% block contenido %}
+    <body class="bg-dark">
+        <section>
+            <div class="row g-0">
+                <div class="col-lg-7">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item img-1 min-vh-100 active">
+                                <img src="{{url_for('static',filename='image/img-carrusel2.jpg')}}" class="d-block img" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="col-lg-5 d-flex flex-column align-items-end min-vh-100">
+                    <div class="px-lg-5 pt-lg-4 pb-lg-3 p-4 w-100 mb-auto">
+                        <img src="{{ url_for('static', filename='image/logo.png')}}" class="img-fluid">
+                    </div>
+                    <div class="px-lg-5 py-lg-4 p-4 w-100 align-self-center">
+                        {% for message in get_flashed_messages() %}
+                            <div class="font color alert alert-danger mt-4">{{ message }}</div>
+                        {% endfor %}
+                        <h1 class="font-weight-bold pt-5 mb-4 text-b">Bienvenido de vuelta</h1>
+                        <form class="mb-5" method="POST">
+                            <div class="mb-4">
+                                <label for="exampleInputEmail1" class="form-label font-weight-bold">Nombre de usuario</label>
+                                <input name="nombre_usuario" type="text" class="form-control-one bg-dark-x border-0 text-b" placeholder="Ingresa tu usuario" required aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-4">
+                                <label name for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
+                                <input name="clave" type="password" class="form-control-one bg-dark-x border-0 mb-2 text-b" placeholder="Ingresa tu contraseña" required id="exampleInputPassword1">
+                                <a href="#" id="emailHelp" class="form-text text-muted text-decoration-none text-b">¿Has olvidado tu contraseña?</a>
+                            </div>
+                            <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Iniciar sesión</button>
+                        </form>
+
+                        <p class="font-weight-bold text-center text-muted text-b"> O inicia sesión con</p>
+                        <div class="d-flex justify-content-around">
+                            <button type="submit" class="btn btn-outline-light flex-grow-1 mr-2">Google</button>
+                            <button type="submit" class="btn btn-outline-light flex-grow-1 ml-2">Facebook</button>
+                        </div>
+                    </div>
+                    <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 w-100 mt-auto">
+                        <p class="d-inline-block mb-8">¿Todavia no tienes una cuenta? </p> 
+                        <a href="{{url_for('auth.crear_cuenta')}}" class="text-light font-weight-bold text-decoration-none text-b">Crea una ahora</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+{% endblock %}
+
+

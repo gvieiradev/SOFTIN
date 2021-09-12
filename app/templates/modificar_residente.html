@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>
+    Softin | Registrar Residente
+</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+{% endblock %}
+
+{% block contenido %}
+<body>
+    <div class="sidebar">
+        <div class="logo-details">
+            <i>
+                <img src="{{ url_for('static', filename='image/logo1.png')}}" class="img-fluid">
+            </i>
+            <span class="logo_name">Softin</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('auth.menu') }}">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="link_name">Inicio</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="{{ url_for('auth.menu') }}">Inicio</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.usuarios')}}">
+                        <i class='bx bx-user'></i>
+                        <span class="link_name">Usuarios</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.usuarios')}}">Usuarios</a></li>
+                    <li><a href="{{ url_for('auth.usuarios_editar')}}">Editar</a></li>
+                    <li><a href="{{ url_for('auth.usuarios_eliminar')}}">Eliminar</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.muebles')}}">
+                        <i class='bx bx-home-alt'></i>
+                        <span class="link_name">Muebles</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
+                    <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.residentes')}}">
+                        <i class='bx bx-hotel'></i>
+                        <span class="link_name">Residentes</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.residentes')}}">Residentes</a></li>
+                    <li><a href="{{ url_for('auth.residentes_registrar') }}">Registrar</a></li>
+                    <li><a href="#">Modificar</a></li>
+                    <li><a href="#">Eliminar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-line-chart"></i>
+                    <span class="link_name">Chart</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Chart</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class="bx bx-plug"></i>
+                        <span class="link_name">Plugins</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Plugins</a></li>
+                    <li><a href="#">UI faces</a></li>
+                    <li><a href="#">Pigments</a></li>
+                    <li><a href="#">Box icon</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-compass"></i>
+                    <span class="link_name">Explore</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Explore</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-history"></i>
+                    <span class="link_name">History</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">History</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-history"></i>
+                    <span class="link_name">Setting</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Setting</a></li>
+                </ul>
+            </li>
+            <li>
+        <div class="profile-details">
+            <div class="profile-content">
+                <img src="{{ url_for('static', filename='image/user-1.png')}}" alt="">
+            </div>
+                <div class="name-job">
+                    <div class="profile_name">Gabriel Vieira</div>
+                    <div class="job">Back-end Dev</div>
+                </div>
+                <i class="bx bx-log-out"></i>
+        </div>
+        </li>
+    </ul>
+
+        </div>
+    </div>
+    <section class="home-section">
+        <div class="home-content">
+            <i class="bx bx-menu"></i>
+            <span class="text">Registrar Residente</span>
+        </div>
+        <!-- Tablero -->
+        <form class="mb-555" method="POST">
+            {% for ar in arrendatario %}
+            <div class="mb-4 row">
+                <label class="form-label font-weight-bold">Cedula de Identidad</label>
+                <div class="col mb-4">
+                    <input name="ci" type="number" class="form-control border-0 text-b" value="{{ ar.ci_arrendatario}}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Nombres</label>
+                <div class="col mb-4">
+                    <input name="p_nombre" type="text" class="form-control border-0 text-b" value="{{ ar.p_nombre }}" required>
+                </div>
+                <div class="col mb-4">
+                    <input name="s_nombre" type="text" class="form-control border-0 text-b" value="{{ ar.s_nombre }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Apellidos</label>
+                <div class="col mb-4">
+                    <input name="p_apellido" type="text" class="form-control border-0 text-b" value="{{ ar.p_apellido }}" required>
+                </div>
+                <div class="col mb-4">
+                    <input name="s_apellido" type="text" class="form-control border-0 text-b" value="{{ ar.s_apellido }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Sexo<label class="form-label font-weight-bold x">Edad</label></label>
+                <div class="col mb-4">
+                    {% if ar.sexo == 'Masculino' %}
+                        <input type="radio" name="sexo" class="form-label font-weight-bold black" value="Femenino" required><span class="black">Femenino<span><br>
+                        <input type="radio" name="sexo" class="form-label font-weight-bold black" value="{{ar.sexo}}" checked required>Masculino
+                    {% else %}
+                        <input type="radio" name="sexo" class="form-label font-weight-bold black" value="{{ar.sexo}}" checked required><span class="black">Femenino<span><br>
+                        <input type="radio" name="sexo" class="form-label font-weight-bold black" value="Masculino" required>Masculino
+                    {% endif %}
+                </div>
+                <div class="col mb-4">
+                    <input name="edad" type="number" class="form-control border-0 text-b" value="{{ ar.edad }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Telefono<label class="form-label font-weight-bold x1">Correo</label></label>
+                <div class="col mb-4">
+                    <input name="telefono" type="tel" class="form-control border-0 text-b" value="{{ ar.telefono }}" required>
+                </div>
+                <div class="col mb-4">
+                    <input name="correo" type="email" class="form-control border-0 text-b" value="{{ ar.correo }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Ocupacion<label class="form-label font-weight-bold x2">Trabajo</label></label>
+                <div class="col mb-4">
+                    <input name="ocupacion" type="text" class="form-control border-0 text-b" value="{{ ar.ocupacion }}" required>
+                </div>
+                <div class="col mb-4">
+                    <input name="trabajo" type="text" class="form-control border-0 text-b" value="{{ ar.trabajo }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Ciudad</label>
+                <div class="col mb-4">
+                    <input name="ciudad" type="text" class="form-control border-0 text-b" value="{{ ar.ciudad }}" required>
+                </div>
+
+                <label class="form-label font-weight-bold">Parejas<label class="form-label font-weight-bold x3">Hijos</label></label>
+                <div class="col mb-4">
+                    {% if ar.pareja == 'Si' %}
+                        <input type="radio" name="pareja" class="form-label font-weight-bold black" value="{{ ar.pareja }}" checked required><span class="black">Si<span><br>
+                        <input type="radio" name="pareja" class="form-label font-weight-bold black" value="No" required>No
+                    {% else %}
+                        <input type="radio" name="pareja" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                        <input type="radio" name="pareja" class="form-label font-weight-bold black" value="{{ ar.pareja }}" checked required>No
+                    {% endif %}
+                </div>
+                <div class="col mb-4">
+                    {% if ar.hijos == 'Si' %}
+                        <input type="radio" name="hijos" class="form-label font-weight-bold black" value="{{ ar.hijos }}" checked required><span class="black">Si<span><br>
+                        <input type="radio" name="hijos" class="form-label font-weight-bold black" value="No" required>No
+                    {% else %}
+                        <input type="radio" name="hijos" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                        <input type="radio" name="hijos" class="form-label font-weight-bold black" value="{{ ar.hijos }}" checked required>No
+                    {% endif %}
+                </div>
+
+                <label class="form-label font-weight-bold">Contrato<label class="form-label font-weight-bold x4">Arrendatario</label></label>
+                <div class="col mb-4">
+                    {% if ar.contrato == 'Si' %}
+                        <input type="radio" name="contrato" class="form-label font-weight-bold black" value="{{ ar.contrato }}" checked required><span class="black">Si<span><br>
+                        <input type="radio" name="contrato" class="form-label font-weight-bold black" value="No" required>No
+                    {% else %}
+                        <input type="radio" name="contrato" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                        <input type="radio" name="contrato" class="form-label font-weight-bold black" value="{{ ar.contrato }}" checked required>No
+                    {% endif %}                
+                </div>
+                <div class="col mb-4">
+                    <select type="text" name="ci_arrendador"  class="form-control border-0 text-b" required>
+                        <option value="{{ ar.ci_arrendador }}">{{ ar.ci_arrendador }}</option>
+                    </select>
+                </div>
+
+                <label class="form-label font-weight-bold">Mueble</label>
+                <div class="col mb-4">
+                    <select type="text" name="id_mueble"  class="form-control border-0 text-b" required>
+                        <option value="{{ ar.id_mueble }}">{{ar.id_mueble}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Registrar residente</button>
+            {% endfor %}
+        </form>
+        
+    </section>
+
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i<arrow.length; i++){
+            arrow[i].addEventListener("click",(e)=>{
+            let arrowParent = e.target.parentElement.parentElement;
+            console.log(arrowParent);
+            arrowParent.classList.toggle("showMenu");
+            });
+        }
+
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn)
+        sidebarBtn.addEventListener("click", ()=>{
+            sidebar.classList.toggle("close")
+        });
+    </script>
+
+
+</body>
+{% endblock %}
