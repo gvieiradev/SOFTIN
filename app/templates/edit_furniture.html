@@ -30,30 +30,30 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url_for('auth.usuarios')}}">
+                    <a href="{{ url_for('auth.user')}}">
                         <i class='bx bx-user'></i>
                         <span class="link_name">Usuarios</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.usuarios')}}">Usuarios</a></li>
-                    <li><a href="{{ url_for('auth.usuarios_editar')}}">Editar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.user')}}">Usuarios</a></li>
+                    <li><a href="{{ url_for('auth.user_edit')}}">Editar</a></li>
                     <li><a href="#">Eliminar</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url_for('auth.muebles')}}">
+                    <a href="{{ url_for('auth.furniture')}}">
                         <i class='bx bx-home-alt'></i>
                         <span class="link_name">Muebles</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
-                    <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
-                    <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
+                    <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
                     <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
                 </ul>
             </li>

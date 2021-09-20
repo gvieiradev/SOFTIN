@@ -30,44 +30,44 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url_for('auth.usuarios')}}">
+                    <a href="{{ url_for('auth.user')}}">
                         <i class='bx bx-user'></i>
                         <span class="link_name">Usuarios</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.usuarios')}}">Usuarios</a></li>
-                    <li><a href="{{ url_for('auth.usuarios_editar')}}">Editar</a></li>
-                    <li><a href="{{ url_for('auth.usuarios_eliminar')}}">Eliminar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.user')}}">Usuarios</a></li>
+                    <li><a href="{{ url_for('auth.user_edit')}}">Editar</a></li>
+                    <li><a href="{{ url_for('auth.user_delete')}}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url_for('auth.muebles')}}">
+                    <a href="{{ url_for('auth.furniture')}}">
                         <i class='bx bx-home-alt'></i>
                         <span class="link_name">Muebles</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
-                    <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
-                    <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
-                    <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
+                    <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url_for('auth.residentes')}}">
+                    <a href="{{ url_for('auth.resident')}}">
                         <i class='bx bx-hotel'></i>
                         <span class="link_name">Residentes</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.residentes')}}">Residentes</a></li>
-                    <li><a href="{{ url_for('auth.residentes_registrar') }}">Registrar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.resident')}}">Residentes</a></li>
+                    <li><a href="{{ url_for('auth.resident_register') }}">Registrar</a></li>
                     <li><a href="#">Modificar</a></li>
                     <li><a href="#">Eliminar</a></li>
                 </ul>
@@ -154,80 +154,80 @@
 
                 <label class="form-label font-weight-bold">Nombres</label>
                 <div class="col mb-4">
-                    <input name="p_nombre" type="text" class="form-control border-0 text-b" placeholder="Ingrese el primer nombre" required>
+                    <input name="f_name" type="text" class="form-control border-0 text-b" placeholder="Ingrese el primer nombre" required>
                 </div>
                 <div class="col mb-4">
-                    <input name="s_nombre" type="text" class="form-control border-0 text-b" placeholder="Ingrese el segundo nombre" required>
+                    <input name="s_name" type="text" class="form-control border-0 text-b" placeholder="Ingrese el segundo nombre" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Apellidos</label>
                 <div class="col mb-4">
-                    <input name="p_apellido" type="text" class="form-control border-0 text-b" placeholder="Ingrese el primer apellido" required>
+                    <input name="f_lastname" type="text" class="form-control border-0 text-b" placeholder="Ingrese el primer apellido" required>
                 </div>
                 <div class="col mb-4">
-                    <input name="s_apellido" type="text" class="form-control border-0 text-b" placeholder="Ingrese el segundo apellido" required>
+                    <input name="s_lastname" type="text" class="form-control border-0 text-b" placeholder="Ingrese el segundo apellido" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Sexo<label class="form-label font-weight-bold x">Edad</label></label>
                 <div class="col mb-4">
-                    <input type="radio" name="sexo" class="form-label font-weight-bold black" value="Femenino" required><span class="black">Femenino<span><br>
-                    <input type="radio" name="sexo" class="form-label font-weight-bold black" value="Masculino" required>Masculino
+                    <input type="radio" name="sex" class="form-label font-weight-bold black" value="Femenino" required><span class="black">Femenino<span><br>
+                    <input type="radio" name="sex" class="form-label font-weight-bold black" value="Masculino" required>Masculino
                 </div>
                 <div class="col mb-4">
-                    <input name="edad" type="number" class="form-control border-0 text-b" placeholder="Ingrese la edad" required>
+                    <input name="age" type="number" class="form-control border-0 text-b" placeholder="Ingrese la edad" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Telefono<label class="form-label font-weight-bold x1">Correo</label></label>
                 <div class="col mb-4">
-                    <input name="telefono" type="tel" class="form-control border-0 text-b" placeholder="Ingrese el numero telefonico" required>
+                    <input name="phone" type="tel" class="form-control border-0 text-b" placeholder="Ingrese el numero telefonico" required>
                 </div>
                 <div class="col mb-4">
-                    <input name="correo" type="email" class="form-control border-0 text-b" placeholder="Ingrese el correo electronico" required>
+                    <input name="mail" type="email" class="form-control border-0 text-b" placeholder="Ingrese el correo electronico" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Ocupacion<label class="form-label font-weight-bold x2">Trabajo</label></label>
                 <div class="col mb-4">
-                    <input name="ocupacion" type="text" class="form-control border-0 text-b" placeholder="Ingrese la ocupacion" required>
+                    <input name="occupation" type="text" class="form-control border-0 text-b" placeholder="Ingrese la ocupacion" required>
                 </div>
                 <div class="col mb-4">
-                    <input name="trabajo" type="text" class="form-control border-0 text-b" placeholder="Ingrese el area de trabajo" required>
+                    <input name="work" type="text" class="form-control border-0 text-b" placeholder="Ingrese el area de trabajo" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Ciudad</label>
                 <div class="col mb-4">
-                    <input name="ciudad" type="text" class="form-control border-0 text-b" placeholder="Ingrese la ciudad" required>
+                    <input name="city" type="text" class="form-control border-0 text-b" placeholder="Ingrese la ciudad" required>
                 </div>
 
                 <label class="form-label font-weight-bold">Parejas<label class="form-label font-weight-bold x3">Hijos</label></label>
                 <div class="col mb-4">
-                    <input type="radio" name="pareja" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                    <input type="radio" name="pareja" class="form-label font-weight-bold black" value="No" required>No
+                    <input type="radio" name="couple" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                    <input type="radio" name="couple" class="form-label font-weight-bold black" value="No" required>No
                 </div>
                 <div class="col mb-4">
-                    <input type="radio" name="hijos" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                    <input type="radio" name="hijos" class="form-label font-weight-bold black" value="No" required>No
+                    <input type="radio" name="children" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                    <input type="radio" name="children class="form-label font-weight-bold black" value="No" required>No
                 </div>
 
                 <label class="form-label font-weight-bold">Contrato<label class="form-label font-weight-bold x4">Arrendatario</label></label>
                 <div class="col mb-4">
-                    <input type="radio" name="contrato" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                    <input type="radio" name="contrato" class="form-label font-weight-bold black" value="No" required>No
+                    <input type="radio" name="contract" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                    <input type="radio" name="contract" class="form-label font-weight-bold black" value="No" required>No
                 </div>
                 <div class="col mb-4">
-                    <select type="text" name="ci_arrendador"  class="form-control border-0 text-b" required>
+                    <select type="text" name="ci_lessor"  class="form-control border-0 text-b" required>
                         <option disabled selected>Seleccione el arrendador</option>
-                        {% for ar in arrendador %}
-                        <option value="{{ ar.ci_arrendador }}">{{ ar.nombre }}</option>
+                        {% for ar in lessor %}
+                        <option value="{{ ar.ci_lessor }}">{{ ar.first_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
 
                 <label class="form-label font-weight-bold">Mueble</label>
                 <div class="col mb-4">
-                    <select type="text" name="id_mueble"  class="form-control border-0 text-b" required>
+                    <select type="text" name="id_furniture"  class="form-control border-0 text-b" required>
                         <option disabled selected>Seleccione el mueble a rentar</option>
-                        {% for muebles in mueble %}
-                        <option value="{{ muebles.id_mueble }}">{{muebles.tipo}}</option>
+                        {% for furnitures in furniture %}
+                        <option value="{{ furnitures.id_furniture }}">{{furnitures.types}}</option>
                         {% endfor %}
                     </select>
                 </div>

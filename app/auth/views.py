@@ -15,21 +15,21 @@ mysql.init_app(app)
 
 @auth.route('/login', methods=["GET","POST"])
 def login():
-    if request.method == "POST" and 'nombre_usuario' in request.form and 'clave' in request.form:
-        nombre_usuario = request.form['nombre_usuario']
-        clave = request.form['clave']
+    if request.method == "POST" and 'users_name' in request.form and 'passw' in request.form:
+        users_name = request.form['users_name']
+        passw = request.form['passw']
         
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM usuario WHERE nombre_usuario=%s AND clave=%s', (nombre_usuario,clave))
+        cursor.execute('SELECT * FROM user WHERE users_name=%s AND passw=%s', (users_name,passw))
         user = cursor.fetchone()
         
         if user:
             session['loggedin'] = True
-            session['ci'] = user['ci_arrendador']
-            session['nombre_usuario'] = user['nombre_usuario']
-            session['clave'] = user['clave']
-            session['correo'] = user['correo_usuario']
+            session['ci'] = user['ci_lessor']
+            session['users_name'] = user['users_name']
+            session['passw'] = user['passw']
+            session['user_mail'] = user['user_mail']
             return redirect(url_for('auth.menu'))
         else:
             error_message = 'Usuario o contraseña invalidos!'
@@ -37,36 +37,36 @@ def login():
     return render_template('login.html')
 
 @auth.route('/Registrar', methods=["GET","POST"])
-def crear_cuenta():
+def create_account():
     if (request.method=="POST"):
         ci = request.form['ci']
-        nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        email = request.form['email']
-        telefono = request.form['telefono']
+        name = request.form['name']
+        last_name = request.form['last_name']
+        mail = request.form['email']
+        phone = request.form['phone']
     
-        sql = "INSERT INTO arrendador (ci_arrendador,nombre,apellido,correo,telefono) VALUES ( %s,%s,%s,%s,%s)"
+        sql = "INSERT INTO lessor (ci_lessor,first_name,last_name,mail,phone) VALUES ( %s,%s,%s,%s,%s)"
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(sql,(ci,nombre,apellido,email,telefono))
+        cursor.execute(sql,(ci,name,last_name,mail,phone))
         conn.commit()
     
-        return redirect(url_for('auth.crear_usuario'))
+        return redirect(url_for('auth.create_user'))
     else:        
         return render_template('create_account.html')
 
 @auth.route('/Registrar_usuario', methods=["GET","POST"])
-def crear_usuario():
+def create_user():
     if (request.method == "POST"):
-        nombre_usuario = request.form['username']
-        clave = request.form['clave']
-        correo = request.form['correo_usuario']
+        users_name = request.form['users_name']
+        passw = request.form['passw']
+        mail = request.form['mail']
         ci = request.form['ci'] #FOREIGN KEY 
         
-        sql = "INSERT INTO usuario (nombre_usuario, clave, correo_usuario, ci_arrendador) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO user (users_name, passw, user_mail, ci_lessor) VALUES (%s, %s, %s, %s)"
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(sql,(nombre_usuario, clave, correo, ci))
+        cursor.execute(sql,(users_name,passw, mail, ci))
         conn.commit()
         
         return redirect(url_for('auth.login'))
@@ -78,8 +78,8 @@ def menu():
     return render_template('menu.html')
 
 @auth.route('/usuarios')
-def usuarios():
-    sql_user = "SELECT nombre_usuario, correo_usuario FROM usuario"
+def user():
+    sql_user = "SELECT users_name, user_mail FROM user"
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql_user)
@@ -88,32 +88,32 @@ def usuarios():
     return render_template('user.html', user=user)
 
 @auth.route('/usuarios_editar', methods=['GET','POST'])
-def usuarios_editar():
+def user_edit():
     context={
         'ci':session['ci'],
-        'usuario':session['nombre_usuario'],
-        'correo':session['correo'],
-        'clave':session['clave']
+        'user':session['users_name'],
+        'mail':session['user_mail'],
+        'pass':session['passw']
     }
     
     if request.method =='POST':
         ci = request.form['ci']
-        nombre_usuario = request.form['nombre_usuario']
-        correo = request.form['correo']
-        clave = request.form['clave']
+        users_name = request.form['users_name']
+        user_mail = request.form['user_mail']
+        passw = request.form['passw']
         
-        sql = 'UPDATE usuario SET nombre_usuario=%s, correo_usuario=%s, clave=%s WHERE ci_arrendador=%s'
-        datos =  (nombre_usuario,correo,clave,ci)
+        sql = 'UPDATE user SET users_name=%s, user_mail=%s, passw=%s WHERE ci_lessor=%s'
+        datos =  (users_name,user_mail,passw,ci)
         conn=mysql.connect()
         cursor=conn.cursor()
         cursor.execute(sql,datos)
         conn.commit()
-        return redirect(url_for('auth.usuarios'))
+        return redirect(url_for('auth.user'))
     return render_template('user_edit.html', **context)
 
 @auth.route('/usuarios_eliminar')
-def usuarios_eliminar():
-    sql = 'SELECT * FROM usuario'
+def user_delete():
+    sql = 'SELECT * FROM user'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
@@ -121,192 +121,189 @@ def usuarios_eliminar():
     conn.commit()
     return render_template('user_delete.html', user=user)
 
-@auth.route('/destroy/<int:id_usuario>')
-def destroy(id_usuario):
+@auth.route('/destroy/<int:id_user>')
+def destroy(id_user):
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute('DELETE FROM usuario WHERE id_usuario=%s',(id_usuario))
+    cursor.execute('DELETE FROM user WHERE id_user=%s',(id_user))
     conn.commit()
-    return redirect(url_for('auth.usuarios'))
+    return redirect(url_for('auth.user'))
 
 @auth.route('/muebles')
-def muebles():
-    sql = 'SELECT tipo, tamanio, disponible FROM mueble'
+def furniture():
+    sql = 'SELECT types, size, available FROM furniture'
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql)
-    mueble = cursor.fetchall()
+    furniture = cursor.fetchall()
     conn.commit()
-    return render_template('furniture.html', mueble=mueble)
+    return render_template('furniture.html', furniture=furniture)
 
 @auth.route('/muebles_registrar', methods=['GET','POST'])
-def muebles_registrar():
+def furniture_register():
     if (request.method == 'POST'):
-        tipo_mueble = request.form['tipo_mueble']
-        tamanio_mueble = request.form['tamanio_mueble']
-        disponibilidad = request.form['dispo']
+        tipe = request.form['tipe']
+        size = request.form['size']
+        available = request.form['available']
         
-        sql = 'INSERT INTO mueble(tipo,tamanio,disponible) VALUES (%s,%s,%s)'
+        sql = 'INSERT INTO furniture(tipe,size,available) VALUES (%s,%s,%s)'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(sql,(tipo_mueble,tamanio_mueble,disponibilidad))
+        cursor.execute(sql,(tipe,size,available))
         conn.commit()
         
-        return redirect(url_for('auth.muebles'))
+        return redirect(url_for('auth.furniture'))
     else:
         return render_template('furniture_register.html')
 
 @auth.route('/muebles_modificar')
-def muebles_modificar():
-    sql='SELECT * FROM mueble'
+def furniture_modify():
+    sql='SELECT * FROM furniture'
     conn = mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
-    mueble=cursor.fetchall()
+    furniture=cursor.fetchall()
     conn.commit()
-    return render_template('furniture_modify.html', mueble=mueble)
+    return render_template('furniture_modify.html', furniture=furniture)
 
-@auth.route('/editar/<int:id_mueble>')
-def editar(id_mueble):
+@auth.route('/editar/<int:id_furniture>')
+def edit_furniture(id_furniture):
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute('SELECT * FROM mueble WHERE id_mueble=%s',(id_mueble))
-    mueble=cursor.fetchall()
+    cursor.execute('SELECT * FROM furniture WHERE id_furniture=%s',(id_furniture))
+    furniture=cursor.fetchall()
     conn.commit()
-    return render_template('edit_furniture.html', mueble=mueble)
+    return render_template('edit_furniture.html', furniture=furniture)
 
 @auth.route('/update', methods=['POST'])
 def update():
-    tipo_mueble = request.form['tipo_mueble']
-    tamanio_mueble = request.form['tamanio_mueble']
-    disponibilidad = request.form['dispo']
-    id_mueble=request.form['id_mueble']
+    types = request.form['types']
+    size = request.form['size']
+    available = request.form['available']
+    id_furniture=request.form['id_furniture']
     
-    sql='UPDATE mueble SET tipo=%s, tamanio=%s, disponible=%s WHERE id_mueble=%s'
-    
+    sql='UPDATE furniture SET types=%s, size=%s, available=%s WHERE id_furniture=%s'
     conn=mysql.connect()
     cursor=conn.cursor()
-    
-    cursor.execute(sql,(tipo_mueble,tamanio_mueble,disponibilidad,id_mueble))
+    cursor.execute(sql,(types,size,available,id_furniture))
     conn.commit()
-    
-    return redirect(url_for('auth.muebles'))
+    return redirect(url_for('auth.furniture'))
 
 @auth.route('/muebles_eliminar')
-def muebles_eliminar():
-    sql = 'SELECT * FROM mueble'
+def remove_furniture():
+    sql = 'SELECT * FROM furniture'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
-    mueble=cursor.fetchall()
+    furniture=cursor.fetchall()
     conn.commit()
-    return render_template('remove_furniture.html', mueble=mueble)
+    return render_template('remove_furniture.html', furniture=furniture)
 
-@auth.route('/muebles_destroy/<int:id_mueble>')
-def muebles_destroy(id_mueble):
+@auth.route('/muebles_destroy/<int:id_furniture>')
+def muebles_destroy(id_furniture):
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute('DELETE FROM mueble WHERE id_mueble=%s', (id_mueble))
+    cursor.execute('DELETE FROM furniture WHERE id_furniture=%s', (id_furniture))
     conn.commit()
-    return redirect(url_for('auth.muebles'))
+    return redirect(url_for('auth.furniture'))
 
 @auth.route('/residentes')
-def residentes():
-    sql='SELECT * FROM arrendatario'
+def resident():
+    sql='SELECT * FROM lessor'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
-    arrendatario=cursor.fetchall()
+    lessor=cursor.fetchall()
     conn.commit()
-    return render_template('resident.html',arrendatario=arrendatario)
+    return render_template('resident.html',lessor=lessor)
 
 @auth.route('/residentes_registrar', methods=['GET','POST'])
-def residentes_registrar():
-    sql='SELECT * FROM mueble'
+def resident_register():
+    sql='SELECT * FROM furniture'
     conn= mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql)
-    mueble=cursor.fetchall()
+    furniture=cursor.fetchall()
     conn.commit()
     
-    sql='SELECT * FROM arrendador'
+    sql='SELECT * FROM lessor'
     conn= mysql.connect()
     cursor = conn.cursor()
     cursor.execute(sql)
-    arrendador=cursor.fetchall()
+    lessor=cursor.fetchall()
     conn.commit()
     
     if (request.method == 'POST'):
-        ci_arrendatario = request.form['ci']
-        p_nombre = request.form['p_nombre']
-        s_nombre = request.form['s_nombre']
-        p_apellido = request.form['p_apellido']
-        s_apellido = request.form['s_apellido']
-        sexo = request.form['sexo']
-        edad = request.form['edad']
-        telefono = request.form['telefono']
-        correo = request.form['correo']
-        ocupacion = request.form['ocupacion']
-        trabajo = request.form['trabajo']
-        ciudad = request.form['ciudad']
-        pareja = request.form['pareja']
-        hijos = request.form['hijos']
-        contrato = request.form['contrato']
-        ci_arrendador = request.form['ci_arrendador']
-        id_mueble = request.form['id_mueble']
+        ci_lessee = request.form['ci']
+        f_name = request.form['f_name']
+        s_name = request.form['s_name']
+        f_lastname = request.form['f_lastname']
+        s_lastname = request.form['s_lastname']
+        sex = request.form['sex']
+        age = request.form['age']
+        phone = request.form['phone']
+        mail = request.form['mail']
+        occupation = request.form['occupation']
+        work = request.form['work']
+        city = request.form['city']
+        couple = request.form['couple']
+        children = request.form['children']
+        contracts = request.form['contracts']
+        ci_lessor = request.form['ci_lessor']
+        id_furniture = request.form['id_furniture']
 
-        sql = 'INSERT INTO arrendatario(ci_arrendatario, p_nombre, s_nombre, p_apellido, s_apellido, sexo, edad, telefono, correo, ocupacion, trabajo, ciudad, pareja, hijos, contrato, ci_arrendador, id_mueble) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        sql = 'INSERT INTO lessee(ci_lessee, f_name, s_name, f_lastname, s_lastname, sex, age, phone, mail, occupation, work, city, couple, children, contracts, ci_lessor, id_furniture) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         conn=mysql.connect()
         cursor=conn.cursor()
-        cursor.execute(sql,(ci_arrendatario, p_nombre, s_nombre, p_apellido, s_apellido, sexo, edad, telefono, correo, ocupacion, trabajo, ciudad, pareja, hijos, contrato, ci_arrendador, id_mueble))
+        cursor.execute(sql,(ci_lessee, f_name, s_name, f_lastname, s_lastname, sex, age, phone, mail, occupation, work, city, couple, children, contracts, ci_lessor, id_furniture))
         conn.commit()
         
-        return redirect(url_for('auth.residentes'))
+        return redirect(url_for('auth.resident'))
     else:
-        return render_template('resident_register.html', mueble=mueble, arrendador=arrendador)
+        return render_template('resident_register.html', furniture=furniture, lessor=lessor)
 
 @auth.route('/residentes_modificar')
-def residentes_modificar():
-    sql='SELECT * FROM arrendatario'
+def resident_modify():
+    sql='SELECT * FROM lessee'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
-    arrendatario=cursor.fetchall()
+    lessee=cursor.fetchall()
     conn.commit()
-    return render_template('resident_modify.html',arrendatario=arrendatario)
+    return render_template('resident_modify.html',lessee=lessee)
 
-@auth.route('/modificar/<int:ci_arrendatario>', methods=['GET','POST'])
-def modifcar(ci_arrendatario):
+@auth.route('/modificar/<int:ci_lessee>', methods=['GET','POST'])
+def modify(ci_lessee):
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute('SELECT * FROM arrendatario WHERE ci_arrendatario=%s',(ci_arrendatario))
-    arrendatario=cursor.fetchall()
+    cursor.execute('SELECT * FROM lessee WHERE ci_lessee=%s',(ci_lessee))
+    lessee=cursor.fetchall()
     conn.commit()
     
     if (request.method == 'POST'):
-        ci_arrendatario = request.form['ci']
-        p_nombre = request.form['p_nombre']
-        s_nombre = request.form['s_nombre']
-        p_apellido = request.form['p_apellido']
-        s_apellido = request.form['s_apellido']
-        sexo = request.form['sexo']
-        edad = request.form['edad']
-        telefono = request.form['telefono']
-        correo = request.form['correo']
-        ocupacion = request.form['ocupacion']
-        trabajo = request.form['trabajo']
-        ciudad = request.form['ciudad']
-        pareja = request.form['pareja']
-        hijos = request.form['hijos']
-        contrato = request.form['contrato']
-        ci_arrendador = request.form['ci_arrendador']
-        id_mueble = request.form['id_mueble']
+        ci_lessee = request.form['ci']
+        f_name = request.form['f_name']
+        s_name = request.form['s_name']
+        f_lastname = request.form['f_lastname']
+        s_lastname = request.form['s_lastname']
+        sex = request.form['sex']
+        age = request.form['age']
+        phone = request.form['phone']
+        mail = request.form['mail']
+        occupation = request.form['occupation']
+        work = request.form['work']
+        city = request.form['city']
+        couple = request.form['couple']
+        children = request.form['children']
+        contracts = request.form['contracts']
+        ci_lessor = request.form['ci_lessor']
+        id_furniture = request.form['id_furniture']
     
-        sql='UPDATE arrendatario SET p_nombre=%s, s_nombre=%s, p_apellido=%s, s_apellido=%s, sexo=%s, edad=%s, telefono=%s, correo=%s, ocupacion=%s, trabajo=%s, ciudad=%s, pareja=%s, hijos=%s, contrato=%s, ci_arrendador=%s, id_mueble=%s WHERE ci_arrendatario=%s'
+        sql='UPDATE lessee SET f_name=%s, s_name=%s, f_lastname=%s, s_lastname=%s, sex=%s, age=%s, phone=%s, mail=%s, occupation=%s, work=%s, city=%s, couple=%s, children=%s, contracts=%s, ci_lessor=%s, id_furniture=%s WHERE ci_lessee=%s'
         conn=mysql.connect()
         cursor=conn.cursor()
-        cursor.execute(sql,(p_nombre, s_nombre, p_apellido, s_apellido, sexo, edad, telefono, correo, ocupacion, trabajo, ciudad, pareja, hijos, contrato, ci_arrendador, id_mueble, ci_arrendatario))
+        cursor.execute(sql,(ci_lessee, f_name, s_name, f_lastname, s_lastname, sex, age, phone, mail, occupation, work, city, couple, children, contracts, ci_lessor, id_furniture))
         conn.commit()
-        return redirect(url_for('auth.residentes'))
+        return redirect(url_for('auth.resident'))
     else:
-        return render_template('change_resident.html', arrendatario=arrendatario)
+        return render_template('change_resident.html', lessee=lessee)

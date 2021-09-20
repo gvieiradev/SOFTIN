@@ -33,11 +33,11 @@
                         <form class="mb-5" method="POST">
                             <div class="mb-4">
                                 <label for="exampleInputEmail1" class="form-label font-weight-bold">Nombre de usuario</label>
-                                <input name="nombre_usuario" type="text" class="form-control-one bg-dark-x border-0 text-b" placeholder="Ingresa tu usuario" required aria-describedby="emailHelp">
+                                <input name="users_name" type="text" class="form-control-one bg-dark-x border-0 text-b" placeholder="Ingresa tu usuario" required aria-describedby="emailHelp">
                             </div>
                             <div class="mb-4">
                                 <label name for="exampleInputPassword1" class="form-label font-weight-bold">Contraseña</label>
-                                <input name="clave" type="password" class="form-control-one bg-dark-x border-0 mb-2 text-b" placeholder="Ingresa tu contraseña" required id="exampleInputPassword1">
+                                <input name="passw" type="password" class="form-control-one bg-dark-x border-0 mb-2 text-b" placeholder="Ingresa tu contraseña" required id="exampleInputPassword1">
                                 <a href="#" id="emailHelp" class="form-text text-muted text-decoration-none text-b">¿Has olvidado tu contraseña?</a>
                             </div>
                             <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Iniciar sesión</button>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="text-center px-lg-5 pt-lg-3 pb-lg-4 p-4 w-100 mt-auto">
                         <p class="d-inline-block mb-8">¿Todavia no tienes una cuenta? </p> 
-                        <a href="{{url_for('auth.crear_cuenta')}}" class="text-light font-weight-bold text-decoration-none text-b">Crea una ahora</a>
+                        <a href="{{url_for('auth.create_account')}}" class="text-light font-weight-bold text-decoration-none text-b">Crea una ahora</a>
                     </div>
                 </div>
             </div>
