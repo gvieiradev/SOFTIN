@@ -53,7 +53,7 @@ def crear_cuenta():
     
         return redirect(url_for('auth.crear_usuario'))
     else:        
-        return render_template('crear_cuenta.html')
+        return render_template('create_account.html')
 
 @auth.route('/Registrar_usuario', methods=["GET","POST"])
 def crear_usuario():
@@ -71,7 +71,7 @@ def crear_usuario():
         
         return redirect(url_for('auth.login'))
     else:
-        return render_template('crear_cuenta_usuario.html')
+        return render_template('create_user_account.html')
 
 @auth.route('/menu')
 def menu():
@@ -85,7 +85,7 @@ def usuarios():
     cursor.execute(sql_user)
     user = cursor.fetchall()
     conn.commit()
-    return render_template('usuario.html', user=user)
+    return render_template('user.html', user=user)
 
 @auth.route('/usuarios_editar', methods=['GET','POST'])
 def usuarios_editar():
@@ -109,7 +109,7 @@ def usuarios_editar():
         cursor.execute(sql,datos)
         conn.commit()
         return redirect(url_for('auth.usuarios'))
-    return render_template('usuario_editar.html', **context)
+    return render_template('user_edit.html', **context)
 
 @auth.route('/usuarios_eliminar')
 def usuarios_eliminar():
@@ -119,7 +119,7 @@ def usuarios_eliminar():
     cursor.execute(sql)
     user=cursor.fetchall()
     conn.commit()
-    return render_template('usuario_eliminar.html', user=user)
+    return render_template('user_delete.html', user=user)
 
 @auth.route('/destroy/<int:id_usuario>')
 def destroy(id_usuario):
@@ -137,7 +137,7 @@ def muebles():
     cursor.execute(sql)
     mueble = cursor.fetchall()
     conn.commit()
-    return render_template('mueble.html', mueble=mueble)
+    return render_template('furniture.html', mueble=mueble)
 
 @auth.route('/muebles_registrar', methods=['GET','POST'])
 def muebles_registrar():
@@ -154,7 +154,7 @@ def muebles_registrar():
         
         return redirect(url_for('auth.muebles'))
     else:
-        return render_template('mueble_registrar.html')
+        return render_template('furniture_register.html')
 
 @auth.route('/muebles_modificar')
 def muebles_modificar():
@@ -164,7 +164,7 @@ def muebles_modificar():
     cursor.execute(sql)
     mueble=cursor.fetchall()
     conn.commit()
-    return render_template('mueble_modificar.html', mueble=mueble)
+    return render_template('furniture_modify.html', mueble=mueble)
 
 @auth.route('/editar/<int:id_mueble>')
 def editar(id_mueble):
@@ -173,7 +173,7 @@ def editar(id_mueble):
     cursor.execute('SELECT * FROM mueble WHERE id_mueble=%s',(id_mueble))
     mueble=cursor.fetchall()
     conn.commit()
-    return render_template('editar_mueble.html', mueble=mueble)
+    return render_template('edit_furniture.html', mueble=mueble)
 
 @auth.route('/update', methods=['POST'])
 def update():
@@ -200,7 +200,7 @@ def muebles_eliminar():
     cursor.execute(sql)
     mueble=cursor.fetchall()
     conn.commit()
-    return render_template('eliminar_mueble.html', mueble=mueble)
+    return render_template('remove_furniture.html', mueble=mueble)
 
 @auth.route('/muebles_destroy/<int:id_mueble>')
 def muebles_destroy(id_mueble):
@@ -218,7 +218,7 @@ def residentes():
     cursor.execute(sql)
     arrendatario=cursor.fetchall()
     conn.commit()
-    return render_template('residente.html',arrendatario=arrendatario)
+    return render_template('resident.html',arrendatario=arrendatario)
 
 @auth.route('/residentes_registrar', methods=['GET','POST'])
 def residentes_registrar():
@@ -263,7 +263,7 @@ def residentes_registrar():
         
         return redirect(url_for('auth.residentes'))
     else:
-        return render_template('residentes_registrar.html', mueble=mueble, arrendador=arrendador)
+        return render_template('resident_register.html', mueble=mueble, arrendador=arrendador)
 
 @auth.route('/residentes_modificar')
 def residentes_modificar():
@@ -273,7 +273,7 @@ def residentes_modificar():
     cursor.execute(sql)
     arrendatario=cursor.fetchall()
     conn.commit()
-    return render_template('residente_modificar.html',arrendatario=arrendatario)
+    return render_template('resident_modify.html',arrendatario=arrendatario)
 
 @auth.route('/modificar/<int:ci_arrendatario>', methods=['GET','POST'])
 def modifcar(ci_arrendatario):
@@ -309,4 +309,4 @@ def modifcar(ci_arrendatario):
         conn.commit()
         return redirect(url_for('auth.residentes'))
     else:
-        return render_template('modificar_residente.html', arrendatario=arrendatario)
+        return render_template('change_resident.html', arrendatario=arrendatario)
