@@ -54,7 +54,7 @@
                     <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
                     <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
                     <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
-                    <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                    <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
@@ -143,14 +143,14 @@
             <!-- {% for message in get_flashed_messages() %}
                 <div class="font color alert alert-danger mt-4">{{ message }}</div>
             {% endfor %} -->
-            {% for muebles in mueble %}
+            {% for furnitures in furniture %}
             <div class="mb-4">
-                <input type="hidden" class="form-control border-0 text-b" value="{{ muebles.id_mueble }}" name="id_mueble">
+                <input type="hidden" class="form-control border-0 text-b" value="{{ furnitures.id_furniture }}" name="id_mueble">
             </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tipo del mueble</label>
                 <select type="text" name="tipo_mueble"  class="form-control border-0 text-b" required>
-                    <option value="{{ muebles.tipo }}">{{ muebles.tipo }}</option>
+                    <option value="{{ furnitures.types }}">{{ furnitures.types }}</option>
                     <option value="Habitacion">Habitacion</option>
                     <option value="Local">Local</option>
                 </select>
@@ -158,19 +158,19 @@
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tamaño del mueble</label>
                 <select type="text" name="tamanio_mueble"  class="form-control border-0 text-b" required>
-                    <option value="{{ muebles.tamanio }}">{{ muebles.tamanio }}</option>
+                    <option value="{{ furnitures.size }}">{{ furnitures.size }}</option>
                     <option value="Matrimonial">Matrimonial</option>
                     <option value="Individual">Individual</option>
                 </select>            
             </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Disponibilidad del mueble</label><br>
-                {% if muebles.disponible == 'Si' %}
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ muebles.dispo }}" checked required><span class="black">Si<span><br>
+                {% if furnitures.available == 'Si' %}
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required><span class="black">Si<span><br>
                     <input type="radio" name="dispo" class="form-label font-weight-bold black" value="No" required>No
                 {% else %}
                     <input type="radio" name="dispo" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ muebles.dispo }}" checked required>No
+                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required>No
                 {% endif %}
             </div>
             <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Modificar mueble</button>

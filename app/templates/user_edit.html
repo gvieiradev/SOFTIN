@@ -41,22 +41,22 @@
                     <ul class="sub-menu">
                         <li><a class="link_name" href="{{ url_for('auth.user')}}">Usuarios</a></li>
                         <li><a href="{{ url_for('auth.user_edit')}}">Editar</a></li>
-                        <li><a href="{{ url_for('auth.usuarios_eliminar')}}">Eliminar</a></li>
+                        <li><a href="{{ url_for('auth.user_delete')}}">Eliminar</a></li>
                     </ul>
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="#">
+                        <a href="{{ url_for('auth.furniture')}}">
                             <i class='bx bx-home-alt'></i>
                             <span class="link_name">Muebles</span>
                         </a>
                         <i class="bx bxs-chevron-down arrow"></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Muebles</a></li>
-                        <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                        <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
+                        <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
+                        <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
+                        <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                     </ul>
                 </li>
                 <li>
@@ -153,15 +153,15 @@
                 </div>
                 <div class="mb-4">
                     <label class="form-label font-weight-bold">Nombre de usuario</label>
-                    <input name="nombre_usuario" type="text" class="form-control border-0 text-b" value="{{ usuario }}" required>
+                    <input name="nombre_usuario" type="text" class="form-control border-0 text-b" value="{{ user }}" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label font-weight-bold">Correo electronico</label>
-                    <input name="correo" type="email" class="form-control border-0 mb-2 text-b" value="{{ correo }}" required>
+                    <input name="correo" type="email" class="form-control border-0 mb-2 text-b" value="{{ mail }}" required>
                 </div>
                 <div class="mb-4">
                     <label class="form-label font-weight-bold">Contraseña</label>
-                    <input name="clave" type="password" class="form-control border-0 mb-2 text-b" value="{{ clave }}" required>
+                    <input name="clave" type="password" class="form-control border-0 mb-2 text-b" value="{{ pass }}" required>
                 </div>
                 <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Aceptar</button>
             </form>

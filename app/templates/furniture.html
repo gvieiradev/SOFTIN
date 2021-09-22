@@ -3,6 +3,9 @@
 
 
 {% block head %}
+    <title>
+        Softin | Muebles
+    </title>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 {% endblock %}
@@ -51,8 +54,8 @@
                     <ul class="sub-menu">
                         <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
                         <li><a href="{{ url_for('auth.furniture_register')}}">Registrar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                        <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
+                        <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                     </ul>
                 </li>
                 <li>
@@ -146,9 +149,9 @@
                                 <th class="th">Disponible</th>
                             </tr>
                             <tr>
-                                <th>{{ furnitures.tipo }}</td>
-                                <th>{{ furnitures.tamanio }}</td>
-                                <th>{{ furnitures.disponible}}</td>
+                                <th>{{ furnitures.types }}</td>
+                                <th>{{ furnitures.size }}</td>
+                                <th>{{ furnitures.available}}</td>
                             </tr>
                     </table>
                 </div>

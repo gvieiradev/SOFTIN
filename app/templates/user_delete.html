@@ -45,17 +45,17 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="{{ url_for('auth.muebles')}}">
+                        <a href="{{ url_for('auth.furniture')}}">
                             <i class='bx bx-home-alt'></i>
                             <span class="link_name">Muebles</span>
                         </a>
                         <i class="bx bxs-chevron-down arrow"></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
-                        <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                        <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
+                        <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
+                        <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
+                        <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                     </ul>
                 </li>
                 <li>
@@ -145,9 +145,9 @@
                     <div class="card1">
                         <img src="{{ url_for('static',filename='image/bxs-user.svg')}}" alt="">
                     </div>
-                    <span class="card-name">{{ users.nombre_usuario }}</span><span class="card-name">{{ users.correo_usuario }}</span>
+                    <span class="card-name">{{ users.users_name }}</span><span class="card-name">{{ users.user_mail }}</span>
                 </div>
-                <a class="delete" href="/destroy/{{ users.id_usuario }}">
+                <a class="delete" href="/destroy/{{ users.id_user }}">
                     <i class='bx bx-trash'></i>
                 </a>
             {% endfor %}

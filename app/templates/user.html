@@ -3,6 +3,9 @@
 
 
 {% block head %}
+    <title>
+        Softin | Usuarios
+    </title>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 {% endblock %}
@@ -42,17 +45,17 @@
                 </li>
                 <li>
                     <div class="iocn-link">
-                        <a href="{{ url_for('auth.muebles')}}">
+                        <a href="{{ url_for('auth.furniture')}}">
                             <i class='bx bx-home-alt'></i>
                             <span class="link_name">Muebles</span>
                         </a>
                         <i class="bx bxs-chevron-down arrow"></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="{{ url_for('auth.muebles')}}">Muebles</a></li>
-                        <li><a href="{{ url_for('auth.muebles_registrar') }}">Registrar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_modificar') }}">Modificar</a></li>
-                        <li><a href="{{ url_for('auth.muebles_eliminar') }}">Eliminar</a></li>
+                        <li><a class="link_name" href="{{ url_for('auth.furniture')}}">Muebles</a></li>
+                        <li><a href="{{ url_for('auth.furniture_register') }}">Registrar</a></li>
+                        <li><a href="{{ url_for('auth.furniture_modify') }}">Modificar</a></li>
+                        <li><a href="{{ url_for('auth.remove_furniture') }}">Eliminar</a></li>
                     </ul>
                 </li>
                 <li>
@@ -149,8 +152,8 @@
                             </tr>
                             <tr>
                                 <th><img src="{{ url_for('static',filename='image/bxs-user.svg')}}"></td>
-                                <th>{{ users.nombre_usuario }}</td>
-                                <th>{{ users.correo_usuario}}</td>
+                                <th>{{ users.users_name }}</td>
+                                <th>{{ users.user_mail}}</td>
                             </tr>
                     </table>
                 </div>
