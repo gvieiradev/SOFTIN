@@ -145,7 +145,7 @@
             {% endfor %} -->
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tipo del mueble</label>
-                <select type="text" name="tipo_mueble"  class="form-control border-0 text-b" required>
+                <select type="text" name="types"  class="form-control border-0 text-b" required>
                     <option value=""></option>
                     <option value="habitacion">Habitacion</option>
                     <option value="local">Local</option>
@@ -153,15 +153,15 @@
             </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tamaño del mueble</label>
-                <select type="text" name="tamanio_mueble"  class="form-control border-0 text-b" required>
+                <select type="text" name="size"  class="form-control border-0 text-b" required>
                     <option value=""></option>
                     <option value="matrimonial">Matrimonial</option>
                     <option value="individual">Individual</option>
                 </select>            </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Disponibilidad del mueble</label><br>
-                <input type="radio" name="dispo" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                <input type="radio" name="dispo" class="form-label font-weight-bold black" value="No" required>No
+                <input type="radio" name="available" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                <input type="radio" name="available" class="form-label font-weight-bold black" value="No" required>No
             </div>
             <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Registrar mueble</button>
         </form>

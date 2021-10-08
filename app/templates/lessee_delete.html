@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>
-        Softin | Residentes
-    </title>
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+<title>
+    Softin | Eliminar Arrendatario
+</title>
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 {% endblock %}
 
 {% block contenido %}
@@ -57,18 +57,12 @@
                 </ul>
             </li>
             <li>
-                <div class="iocn-link">
-                    <a href="{{ url_for('auth.resident')}}">
-                        <i class='bx bx-hotel'></i>
-                        <span class="link_name">Residentes</span>
-                    </a>
-                    <i class="bx bxs-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.resident')}}">Residentes</a></li>
-                    <li><a href="{{ url_for('auth.resident_register') }}">Registrar</a></li>
-                    <li><a href="{{ url_for('auth.resident_modify') }}">Modificar</a></li>
-                    <li><a href="#">Eliminar</a></li>
+                <a href="#">
+                    <i class="bx bx-pie-chart-alt-2"></i>
+                    <span class="link_name">Analytics</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Analytics</a></li>
                 </ul>
             </li>
             <li>
@@ -134,34 +128,41 @@
                 <i class="bx bx-log-out"></i>
         </div>
         </li>
-        </ul>
-
-        
+    </ul>
 
         </div>
     </div>
     <section class="home-section">
         <div class="home-content">
             <i class="bx bx-menu"></i>
-            <span class="text">Residentes</span>
+            <span class="text">Eliminar Mueble</span>
         </div>
         <!-- Tablero -->
         {% for lessees in lessee %}
-                <div class="card">
-                    <table class="table">
-                            <tr class="tr">
-                                <th class="th">Nombre</th>
-                                <th class="th">Apellido</th>
-                                <th class="th">Mueble</th>
-                            </tr>
-                            <tr>
-                                <th>{{ lessees.f_name }}</td>
-                                <th>{{ lessees.f_lastname }}</td>
-                                <th>{{ lessees.id_furniture }}</td>
-                            </tr>
-                    </table>
-                </div>
+            <div class="card">
+                <table class="table">
+                    <tr class="tr">
+                        <th class="th">Nombre</th>
+                        <th class="th">Apellido</th>
+                        <th class="th">Mueble</th>
+                    </tr>
+                    
+                    <tr>
+                        <th>{{ lessees.f_name }}</td>
+                        <th>{{ lessees.f_lastname }}</td>
+                        <th>{{ lessees.id_furniture}}</td>
+                        <th>
+                            <a href="/lessee_destroy/{{ lessees.ci_lessee }}">
+                                <i class='bx bx-trash'></i>
+                            </a>
+                        </th>
+                    </tr>
+                    
+                </table>
+                
+            </div>
             {% endfor %}
+        
     </section>
 
     <script>

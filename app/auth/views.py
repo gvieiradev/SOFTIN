@@ -142,14 +142,14 @@ def furniture():
 @auth.route('/muebles_registrar', methods=['GET','POST'])
 def furniture_register():
     if (request.method == 'POST'):
-        tipe = request.form['tipe']
+        types = request.form['types']
         size = request.form['size']
         available = request.form['available']
         
-        sql = 'INSERT INTO furniture(tipe,size,available) VALUES (%s,%s,%s)'
+        sql = 'INSERT INTO furniture(types,size,available) VALUES (%s,%s,%s)'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(sql,(tipe,size,available))
+        cursor.execute(sql,(types,size,available))
         conn.commit()
         
         return redirect(url_for('auth.furniture'))
@@ -209,13 +209,13 @@ def muebles_destroy(id_furniture):
 
 @auth.route('/residentes')
 def resident():
-    sql='SELECT * FROM lessor'
+    sql='SELECT * FROM lessee'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
-    lessor=cursor.fetchall()
+    lessee=cursor.fetchall()
     conn.commit()
-    return render_template('resident.html',lessor=lessor)
+    return render_template('resident.html',lessee=lessee)
 
 @auth.route('/residentes_registrar', methods=['GET','POST'])
 def resident_register():
@@ -307,3 +307,21 @@ def modify(ci_lessee):
         return redirect(url_for('auth.resident'))
     else:
         return render_template('change_resident.html', lessee=lessee)
+
+@auth.route('/residente_eliminar')
+def lessee_delete():
+    sql='SELECT * FROM lessee'
+    conn=mysql.connect()
+    cursor=conn.cursor()
+    cursor.execute(sql)
+    lessee=cursor.fetchall()
+    conn.commit()
+    return render_template('lessee_delete.html', lessee=lessee)
+
+@auth.route('/lessee_destroy/<int:ci_lessee>')
+def lessee_destroy(ci_lessee):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM lessee WHERE ci_lessee=%s',(ci_lessee))
+    conn.commit()
+    return redirect(url_for('auth.resident'))
