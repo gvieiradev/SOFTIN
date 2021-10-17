@@ -58,12 +58,18 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
-                    <i class="bx bx-pie-chart-alt-2"></i>
-                    <span class="link_name">Analytics</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Analytics</a></li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.lessee')}}">
+                        <i class='bx bx-hotel'></i>
+                        <span class="link_name">Arrendatarios</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.lessee')}}">Residentes</a></li>
+                    <li><a href="{{ url_for('auth.lessee_register') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_modify') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_delete') }}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
@@ -145,11 +151,11 @@
             {% endfor %} -->
             {% for furnitures in furniture %}
             <div class="mb-4">
-                <input type="hidden" class="form-control border-0 text-b" value="{{ furnitures.id_furniture }}" name="id_mueble">
+                <input type="hidden" class="form-control border-0 text-b" value="{{ furnitures.id_furniture }}" name="id_furniture">
             </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tipo del mueble</label>
-                <select type="text" name="tipo_mueble"  class="form-control border-0 text-b" required>
+                <select type="text" name="types"  class="form-control border-0 text-b" required>
                     <option value="{{ furnitures.types }}">{{ furnitures.types }}</option>
                     <option value="Habitacion">Habitacion</option>
                     <option value="Local">Local</option>
@@ -157,20 +163,24 @@
             </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Tamaño del mueble</label>
-                <select type="text" name="tamanio_mueble"  class="form-control border-0 text-b" required>
+                <select type="text" name="size"  class="form-control border-0 text-b" required>
                     <option value="{{ furnitures.size }}">{{ furnitures.size }}</option>
                     <option value="Matrimonial">Matrimonial</option>
                     <option value="Individual">Individual</option>
                 </select>            
             </div>
             <div class="mb-4">
+                <label class="form-label font-weight-bold">valor del mueble</label>
+                <input name="price" type="text" class="form-control border-0 text-b" value="{{ furnitures.price }}" required>
+            </div>
+            <div class="mb-4">
                 <label class="form-label font-weight-bold">Disponibilidad del mueble</label><br>
                 {% if furnitures.available == 'Si' %}
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required><span class="black">Si<span><br>
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="No" required>No
+                    <input type="radio" name="available" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required><span class="black">Si<span><br>
+                    <input type="radio" name="available" class="form-label font-weight-bold black" value="No" required>No
                 {% else %}
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
-                    <input type="radio" name="dispo" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required>No
+                    <input type="radio" name="available" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>
+                    <input type="radio" name="available" class="form-label font-weight-bold black" value="{{ furnitures.available }}" checked required>No
                 {% endif %}
             </div>
             <button name="btn_submit" type="submit" class="btn btn-primary w-100 text-b">Modificar mueble</button>

@@ -144,12 +144,13 @@ def furniture_register():
     if (request.method == 'POST'):
         types = request.form['types']
         size = request.form['size']
+        price = request.form['price']
         available = request.form['available']
         
-        sql = 'INSERT INTO furniture(types,size,available) VALUES (%s,%s,%s)'
+        sql = 'INSERT INTO furniture(types,size,price,available) VALUES (%s,%s,%s,%s)'
         conn = mysql.connect()
         cursor = conn.cursor()
-        cursor.execute(sql,(types,size,available))
+        cursor.execute(sql,(types,size,price,available))
         conn.commit()
         
         return redirect(url_for('auth.furniture'))
@@ -179,13 +180,14 @@ def edit_furniture(id_furniture):
 def update():
     types = request.form['types']
     size = request.form['size']
+    price = request.form['price']
     available = request.form['available']
     id_furniture=request.form['id_furniture']
     
-    sql='UPDATE furniture SET types=%s, size=%s, available=%s WHERE id_furniture=%s'
+    sql='UPDATE furniture SET types=%s, size=%s, price=%s, available=%s WHERE id_furniture=%s'
     conn=mysql.connect()
     cursor=conn.cursor()
-    cursor.execute(sql,(types,size,available,id_furniture))
+    cursor.execute(sql,(types,size,price,available,id_furniture))
     conn.commit()
     return redirect(url_for('auth.furniture'))
 
@@ -208,17 +210,17 @@ def muebles_destroy(id_furniture):
     return redirect(url_for('auth.furniture'))
 
 @auth.route('/residentes')
-def resident():
+def lessee():
     sql='SELECT * FROM lessee'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
     lessee=cursor.fetchall()
     conn.commit()
-    return render_template('resident.html',lessee=lessee)
+    return render_template('lessee.html',lessee=lessee)
 
 @auth.route('/residentes_registrar', methods=['GET','POST'])
-def resident_register():
+def lessee_register():
     sql='SELECT * FROM furniture'
     conn= mysql.connect()
     cursor = conn.cursor()
@@ -258,19 +260,19 @@ def resident_register():
         cursor.execute(sql,(ci_lessee, f_name, s_name, f_lastname, s_lastname, sex, age, phone, mail, occupation, work, city, couple, children, contracts, ci_lessor, id_furniture))
         conn.commit()
         
-        return redirect(url_for('auth.resident'))
+        return redirect(url_for('auth.lessee'))
     else:
-        return render_template('resident_register.html', furniture=furniture, lessor=lessor)
+        return render_template('lessee_register.html', furniture=furniture, lessor=lessor)
 
 @auth.route('/residentes_modificar')
-def resident_modify():
+def lessee_modify():
     sql='SELECT * FROM lessee'
     conn=mysql.connect()
     cursor=conn.cursor()
     cursor.execute(sql)
     lessee=cursor.fetchall()
     conn.commit()
-    return render_template('resident_modify.html',lessee=lessee)
+    return render_template('lessee_modify.html',lessee=lessee)
 
 @auth.route('/modificar/<int:ci_lessee>', methods=['GET','POST'])
 def modify(ci_lessee):

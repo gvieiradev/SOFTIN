@@ -58,12 +58,18 @@
                 </ul>
             </li>
             <li>
-                <a href="#">
-                    <i class="bx bx-pie-chart-alt-2"></i>
-                    <span class="link_name">Analytics</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Analytics</a></li>
+                <div class="iocn-link">
+                    <a href="{{ url_for('auth.lessee')}}">
+                        <i class='bx bx-hotel'></i>
+                        <span class="link_name">Arrendatarios</span>
+                    </a>
+                    <i class="bx bxs-chevron-down arrow"></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="{{ url_for('auth.lessee')}}">Residentes</a></li>
+                    <li><a href="{{ url_for('auth.lessee_register') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_modify') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_delete') }}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
@@ -157,7 +163,12 @@
                     <option value=""></option>
                     <option value="matrimonial">Matrimonial</option>
                     <option value="individual">Individual</option>
-                </select>            </div>
+                </select>            
+            </div>
+            <div class="mb-4">
+                <label class="form-label font-weight-bold">Valor del mueble</label>
+                <input name="price" type="number" class="form-control border-0 text-b" required>
+            </div>
             <div class="mb-4">
                 <label class="form-label font-weight-bold">Disponibilidad del mueble</label><br>
                 <input type="radio" name="available" class="form-label font-weight-bold black" value="Si" required><span class="black">Si<span><br>

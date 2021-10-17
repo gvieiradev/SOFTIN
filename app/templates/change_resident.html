@@ -61,15 +61,15 @@
                 <div class="iocn-link">
                     <a href="{{ url_for('auth.resident')}}">
                         <i class='bx bx-hotel'></i>
-                        <span class="link_name">Residentes</span>
+                        <span class="link_name">Arrendatarios</span>
                     </a>
                     <i class="bx bxs-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="{{ url_for('auth.resident')}}">Residentes</a></li>
-                    <li><a href="{{ url_for('auth.resident_register') }}">Registrar</a></li>
-                    <li><a href="#">Modificar</a></li>
-                    <li><a href="#">Eliminar</a></li>
+                    <li><a class="link_name" href="{{ url_for('auth.lessee')}}">Residentes</a></li>
+                    <li><a href="{{ url_for('auth.lessee_register') }}">Registrar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_modify') }}">Modificar</a></li>
+                    <li><a href="{{ url_for('auth.lessee_delete') }}">Eliminar</a></li>
                 </ul>
             </li>
             <li>
